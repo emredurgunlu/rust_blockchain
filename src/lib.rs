@@ -3,15 +3,15 @@ type BlockHash = Vec<u8>;
 // Credit: https://stackoverflow.com/a/44378174/2773837
 use std::time::{SystemTime, UNIX_EPOCH};
 
+//gives the current time in milliseconds
 pub fn now() -> u128 {
-    //gives the current time in milliseconds
     let duration = SystemTime::now().duration_since(UNIX_EPOCH).unwrap();
 
     duration.as_secs() as u128 * 1000 + duration.subsec_millis() as u128
 }
 
+//gives byte array
 pub fn u32_bytes(u: &u32) -> [u8; 4] {
-    //gives byte array
     [
         (u >> 8 * 0x0) as u8,
         (u >> 8 * 0x1) as u8,
@@ -20,8 +20,8 @@ pub fn u32_bytes(u: &u32) -> [u8; 4] {
     ]
 }
 
+//gives byte array
 pub fn u64_bytes(u: &u64) -> [u8; 8] {
-    //gives byte array
     [
         (u >> 8 * 0x0) as u8,
         (u >> 8 * 0x1) as u8,
@@ -34,8 +34,8 @@ pub fn u64_bytes(u: &u64) -> [u8; 8] {
     ]
 }
 
+//gives byte array
 pub fn u128_bytes(u: &u128) -> [u8; 16] {
-    //gives byte array
     [
         (u >> 8 * 0x0) as u8,
         (u >> 8 * 0x1) as u8,
@@ -56,6 +56,8 @@ pub fn u128_bytes(u: &u128) -> [u8; 16] {
     ]
 }
 
+//converts the last 16 bytes to u128
+//this fn is used for check_difficulty in the block.rs
 pub fn difficulty_bytes_as_u128(v: &Vec<u8>) -> u128 {
     ((v[31] as u128) << 0xf * 8)
         | ((v[30] as u128) << 0xe * 8)
